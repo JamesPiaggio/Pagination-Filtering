@@ -40,9 +40,9 @@ const showPage = (list, page) => {
     const endIndex = page * itemsPerPage;
     for(let i = 0; i < list.length; i++) {
         if (i >= startIndex && i <= endIndex) {
-            list.style.display = 'inline';
+            list[i].style.display = 'block';
         } else {
-            list.style.display = 'none';
+            list[i].style.display = 'none';
         }
     }  
 }
@@ -67,14 +67,13 @@ const appendPageLinks = (list) => {
         const a = document.createElement('a');
         a.href = '#';
         a.textContent = i + 1;
-        a.addEventListener('click', showPage(studentItem, i));
         li.appendChild(a);
         ul.appendChild(li);
     }
-    ul.firstElementChild.className = 'active';
-
-    
+    ul.firstElementChild.firstElementChild.className = 'active';   
+    showPage(studentItem, 1);
 }
+appendPageLinks(studentItem);
 
 
 
