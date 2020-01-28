@@ -43,6 +43,14 @@ const appendPageLinks = (list) => {
     }
     ul.firstElementChild.firstElementChild.className = 'active';   
     showPage(studentItem, 1);
+    div.addEventListener('click', (e) => {
+        const pageLink = event.target;
+        const activeLink = document.querySelector('.active');
+        activeLink.className = '';
+        pageLink.className = 'active';
+        showPage(studentItem, pageLink.textContent);
+        
+    })
 }
 appendPageLinks(studentItem);
 
