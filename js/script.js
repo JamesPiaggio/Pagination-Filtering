@@ -19,6 +19,18 @@ const showPage = (list, page) => {
     }  
 }
 
+// appendSearch function
+const appendSearch = () => {
+    const searchDiv = document.createElement('div');
+    searchDiv.className = 'student-search';
+    document.querySelector('.page-header').appendChild(searchDiv);
+    const searchField = document.createElement('input');
+    searchField.placeholder = 'Search for students...';
+    searchDiv.appendChild(searchField);
+    const searchButton = document.createElement('button');
+    searchDiv.appendChild(searchButton);  
+}
+
 // appendPageLinks function
 const appendPageLinks = (list) => {
     const pageAmount = Math.ceil(list.length / itemsPerPage);
@@ -45,6 +57,7 @@ const appendPageLinks = (list) => {
         pageLink.className = 'active';
         showPage(studentItem, pageLink.textContent);    
     });
+    appendSearch();
 }
 
 appendPageLinks(studentItem);
