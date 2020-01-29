@@ -4,7 +4,58 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 // Global variables
 const studentItem = document.querySelectorAll('.student-item');
+const pageDiv = document.querySelector('.page');
 const itemsPerPage = 10;
+const searchResults = [];
+
+// Appends searchbar to html
+const searchDiv = document.createElement('div');
+const searchField = document.createElement('input');
+const searchButton = document.createElement('button');
+document.querySelector('.page-header').appendChild(searchDiv);
+searchDiv.appendChild(searchField);
+searchDiv.appendChild(searchButton);
+
+// Adds attributes to searchbar
+searchDiv.className = 'student-search';
+searchField.placeholder = 'Search for students...';
+
+// resetPageLinks function
+const resetPageLinks = () => {
+    // Removes current Pagination links
+    pageDiv.removeChild(document.querySelector('.pagination'));
+}
+
+// searchList function
+const searchList = (searchField, list) => {
+    for (let i = 0; i < list.length; i++) {
+        let student = list[i];
+        let name = student.children[1];
+        if (searchField.length !== 0 && name.textContent.toLowerCase().includes(searchField.value.toLowerCase())) {
+            student.style.display = 'none';
+            searchResults.push(student);
+            } else {
+                student.style.display = 'none';
+            }
+    }
+    if (searchResults.length > 0) {
+        resetPageLinks();
+        appendPageLinks(searchResults);
+        showPage(searchResults, 1);
+    }
+    if (searchField.value === '') {
+        searchResults.length = 0;
+    }
+}
+
+// Event Listeners
+searchDiv.addEventListener('click', (e) => {
+    searchList(searchField, studentItem);
+});
+
+searchDiv.addEventListener('keyup', () => {
+    searchList(searchField, studentItem);
+});
 
 // showPage function
 const showPage = (list, page) => {
@@ -19,22 +70,9 @@ const showPage = (list, page) => {
     }  
 }
 
-// appendSearch function
-const appendSearch = () => {
-    const searchDiv = document.createElement('div');
-    searchDiv.className = 'student-search';
-    document.querySelector('.page-header').appendChild(searchDiv);
-    const searchField = document.createElement('input');
-    searchField.placeholder = 'Search for students...';
-    searchDiv.appendChild(searchField);
-    const searchButton = document.createElement('button');
-    searchDiv.appendChild(searchButton);  
-}
-
 // appendPageLinks function
 const appendPageLinks = (list) => {
     const pageAmount = Math.ceil(list.length / itemsPerPage);
-    const pageDiv = document.querySelector('.page');
     const div = document.createElement('div');
     div.className = 'pagination';
     pageDiv.appendChild(div);
@@ -57,8 +95,6 @@ const appendPageLinks = (list) => {
         pageLink.className = 'active';
         showPage(studentItem, pageLink.textContent);    
     });
-    appendSearch();
 }
 
 appendPageLinks(studentItem);
-
