@@ -5,8 +5,8 @@ FSJS project 2 - List Filter and Pagination
 // Global variables
 const studentItem = document.querySelectorAll('.student-item');
 const pageDiv = document.querySelector('.page');
-const itemsPerPage = 10;
 const searchResults = [];
+const itemsPerPage = 10;
 
 // Appends searchbar to html
 const searchDiv = document.createElement('div');
@@ -18,44 +18,29 @@ searchDiv.appendChild(searchButton);
 
 // Adds attributes to searchbar
 searchDiv.className = 'student-search';
+searchButton.textContent = 'Search';
 searchField.placeholder = 'Search for students...';
 
 // resetPageLinks function
 const resetPageLinks = () => {
     // Removes current Pagination links
     pageDiv.removeChild(document.querySelector('.pagination'));
+    studentItem.style.display = 'none';
 }
 
 // searchList function
 const searchList = (searchField, list) => {
     for (let i = 0; i < list.length; i++) {
-        let student = list[i];
-        let name = student.children[1];
+        const student = list[i];
+        const name = student.firstElementChild.children[1];
         if (searchField.length !== 0 && name.textContent.toLowerCase().includes(searchField.value.toLowerCase())) {
-            student.style.display = 'none';
             searchResults.push(student);
-            } else {
-                student.style.display = 'none';
+        } else {
+            student.style.display = 'none';
             }
     }
-    if (searchResults.length > 0) {
-        resetPageLinks();
-        appendPageLinks(searchResults);
-        showPage(searchResults, 1);
-    }
-    if (searchField.value === '') {
-        searchResults.length = 0;
-    }
+    return searchResults;
 }
-
-// Event Listeners
-searchDiv.addEventListener('click', (e) => {
-    searchList(searchField, studentItem);
-});
-
-searchDiv.addEventListener('keyup', () => {
-    searchList(searchField, studentItem);
-});
 
 // showPage function
 const showPage = (list, page) => {
@@ -96,5 +81,21 @@ const appendPageLinks = (list) => {
         showPage(studentItem, pageLink.textContent);    
     });
 }
+
+// Event Listeners
+searchDiv.addEventListener('click', (e) => {
+    searchList(searchField, studentItem);
+    resetPageLinks();
+    appendPageLinks(searchResults);
+    showPage(searchResults, 1);
+    });
+
+
+searchDiv.addEventListener('keyup', () => {
+    searchList(searchField, studentItem);
+    resetPageLinks();
+    appendPageLinks(searchResults);
+    showPage(searchResults, 1);
+});
 
 appendPageLinks(studentItem);
