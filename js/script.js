@@ -31,7 +31,7 @@ const resetPageLinks = () => {
 }
 
 // searchList function
-const searchList = (searchField, list) => {
+const searchList = (list) => {
     // For loop to compare search input to student list
     for (let i = 0; i < list.length; i++) {
         const student = list[i];
@@ -43,26 +43,24 @@ const searchList = (searchField, list) => {
             student.style.display = 'none';
             }
     }
-    // Creates Pagination for searched list
-    appendPageLinks(searchResults);
-    // If nothing is in the input the page resets to initial load
-    if (searchField.value === '') {
-        searchResults = [];
-        resetPageLinks();
-        appendPageLinks(studentItem);
+    if (searchResults.length > 0) {
+        // Creates Pagination for searched list
+        appendPageLinks(searchResults);
     }
+    // Resets searchResults
+    searchResults = [];
 }
 
 // Event Listeners for searchDiv
 searchDiv.addEventListener('click', (e) => {
     resetPageLinks();
-    searchList(searchField, studentItem);
+    searchList(studentItem);
     });
 
 
 searchDiv.addEventListener('keyup', () => {
     resetPageLinks();
-    searchList(searchField, studentItem);
+    searchList(studentItem);
 });
 
 // appendPageLinks function
