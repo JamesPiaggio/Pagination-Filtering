@@ -49,6 +49,7 @@ const searchList = (list) => {
             student.style.display = 'none';
             }
     }
+    // Show no result message if searchResults is empty
     if (searchResults.length === 0) {
         messageDiv.style.display = 'block';
     } else {
