@@ -8,8 +8,6 @@ const pageDiv = document.querySelector('.page');
 let searchResults = [];
 const itemsPerPage = 10;
 
-
-
 // Appends searchbar to html
 const searchDiv = document.createElement('div');
 const searchField = document.createElement('input');
@@ -22,6 +20,14 @@ searchDiv.appendChild(searchButton);
 searchDiv.className = 'student-search';
 searchButton.textContent = 'Search';
 searchField.placeholder = 'Search for students...';
+
+// Creates no results message
+const messageDiv = document.createElement('div');
+const noResult = document.createElement('h3');
+noResult.textContent = 'Sorry, there are no results...'
+messageDiv.appendChild(noResult);
+pageDiv.appendChild(messageDiv);
+messageDiv.style.display = 'none';
 
 // resetPageLinks function
 const resetPageLinks = () => {
@@ -43,10 +49,12 @@ const searchList = (list) => {
             student.style.display = 'none';
             }
     }
-    if (searchResults.length > 0) {
-        // Creates Pagination for searched list
-        appendPageLinks(searchResults);
+    if (searchResults.length === 0) {
+        messageDiv.style.display = 'block';
+    } else {
+        messageDiv.style.display = 'none';
     }
+    appendPageLinks(searchResults);
     // Resets searchResults
     searchResults = [];
 }
