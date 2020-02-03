@@ -90,11 +90,11 @@ const appendPageLinks = (list) => {
         a.textContent = i + 1;
         li.appendChild(a);
         ul.appendChild(li);
+        // Gives first pagination link the class 'active'
+        ul.firstElementChild.firstElementChild.className = 'active';
     }
     div.appendChild(ul);
     pageDiv.appendChild(document.querySelector('.pagination'));
-    // Gives first pagination link the class 'active'
-    ul.firstElementChild.firstElementChild.className = 'active';   
     showPage(list, 1);
 }
 
