@@ -1,7 +1,3 @@
-/******************************************
-Treehouse Techdegree:
-FSJS project 2 - List Filter and Pagination
-******************************************/
 // Global variables
 const studentItem = document.querySelectorAll('.student-item');
 const pageDiv = document.querySelector('.page');
