@@ -57,7 +57,7 @@ const searchList = (list) => {
 }
 
 // Event Listeners for searchDiv
-searchDiv.addEventListener('click', (e) => {
+searchDiv.addEventListener('click', () => {
     resetPageLinks();
     searchList(studentItem);
     });
